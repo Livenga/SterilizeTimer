@@ -25,7 +25,7 @@ get_analog_value(unsigned char port) {
 
   ANSEL  = (1 << port);
   ADCON0 = 0b01000001 | ((port & 0b1111) << 2);
-  ADCON1 = 0b10000000;
+  ADCON1 = 0b10110000; // Vref+ -> 3.3V, Vref- -> 0V
   __delay_us(20);
 
   ADCON0bits.GO_DONE = 1;
@@ -164,7 +164,7 @@ main(void) {
 
   // アナログ入力
   ADCON0  = 0b01000000;
-  ADCON1  = 0b10000000;
+  ADCON1  = 0b10110000; // Vref+ -> 3.3V, Vref- -> 0V
   ANSEL   = 0b00000011;
   ANSELH  = 0b00000000;
   CM1CON0 = 0b00000000;
